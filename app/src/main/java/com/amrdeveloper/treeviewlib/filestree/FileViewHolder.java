@@ -28,8 +28,8 @@ public class FileViewHolder extends TreeViewHolder {
     }
 
     @Override
-    public void bindTreeNode(TreeNode node) {
-        super.bindTreeNode(node);
+    public void bindTreeNode(TreeNode node, int position) {
+        super.bindTreeNode(node, position);
 
         String fileNameStr = node.getValue().toString();
         fileName.setText(fileNameStr);

@@ -118,29 +118,9 @@ public class TreeViewAdapter extends RecyclerView.Adapter<TreeViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TreeViewHolder holder, int position) {
         TreeNode currentNode = treeNodeManager.get(position);
-        holder.bindTreeNode(currentNode);
+        holder.bindTreeNode(currentNode, position);
 
         holder.itemView.setOnClickListener(v -> {
-            // Handle node selection
-            if (currentNode == currentSelectedNode) {
-                currentSelectedNode.setSelected(!currentSelectedNode.isSelected());
-            } else {
-                if (currentSelectedNode != null) currentSelectedNode.setSelected(false);
-                currentSelectedNode = currentNode;
-            }
-
-            // Handle node expand and collapse event
-            if (!currentNode.getChildren().isEmpty()) {
-                boolean isNodeExpanded = currentNode.isExpanded();
-                if (isNodeExpanded) collapseNode(currentNode);
-                else expandNode(currentNode);
-                currentNode.setExpanded(!isNodeExpanded);
-
-                // Only children after this position will be inserted (Expanding) or deleted (Collapsing)
-                notifyItemRangeChanged(position, getItemCount() - position);
-            }
-
-            // Handle TreeNode click listener event
             if (treeNodeClickListener != null) {
                 treeNodeClickListener.onTreeNodeClick(currentNode, v);
             }
@@ -153,6 +133,26 @@ public class TreeViewAdapter extends RecyclerView.Adapter<TreeViewHolder> {
             }
             return true;
         });
+    }
+
+    public void collapseExpandNodes(TreeNode currentNode, int position) {
+        if (currentNode == currentSelectedNode) {
+            currentSelectedNode.setSelected(!currentSelectedNode.isSelected());
+        } else {
+            if (currentSelectedNode != null) currentSelectedNode.setSelected(false);
+            currentSelectedNode = currentNode;
+        }
+
+        // Handle node expand and collapse event
+        if (!currentNode.getChildren().isEmpty()) {
+            boolean isNodeExpanded = currentNode.isExpanded();
+            if (isNodeExpanded) collapseNode(currentNode);
+            else expandNode(currentNode);
+            currentNode.setExpanded(!isNodeExpanded);
+
+            // Only children after this position will be inserted (Expanding) or deleted (Collapsing)
+            notifyItemRangeChanged(position, getItemCount() - position);
+        }
     }
 
     @Override

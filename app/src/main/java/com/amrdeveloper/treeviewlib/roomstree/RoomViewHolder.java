@@ -26,8 +26,8 @@ public class RoomViewHolder extends TreeViewHolder {
     }
 
     @Override
-    public void bindTreeNode(TreeNode node) {
-        super.bindTreeNode(node);
+    public void bindTreeNode(TreeNode node, int position) {
+        super.bindTreeNode(node, position);
 
         String roomNameStr = node.getValue().toString();
         roomName.setText(roomNameStr);

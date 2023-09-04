@@ -28,8 +28,8 @@ public class UserViewHolder extends TreeViewHolder {
     }
 
     @Override
-    public void bindTreeNode(TreeNode node) {
-        super.bindTreeNode(node);
+    public void bindTreeNode(TreeNode node, int position) {
+        super.bindTreeNode(node, position);
 
         User currentUser = (User) node;
         userName.setText(currentUser.getValue().toString());

@@ -48,7 +48,7 @@ public class TreeViewHolder extends RecyclerView.ViewHolder {
      * Bind method that provide padding and bind TreeNode to the view list item
      * @param node the current TreeNode
      */
-    public void bindTreeNode(TreeNode node) {
+    public void bindTreeNode(TreeNode node, int position) {
         int padding = node.getLevel() * nodePadding;
         itemView.setPadding(
                 padding,
